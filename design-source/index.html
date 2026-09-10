@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abdul Wahid — Computer Vision &amp; Full-Stack Engineer</title>
+<meta name="description" content="Abdul Wahid — Computer Science graduate majoring in Data Science. Building real-time computer-vision systems, FastAPI &amp; Next.js applications, and Python automation pipelines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0b;
+    --ink: #f2f0ea;
+    --ink-dim: #d8d5cc;
+    --ink-mute: #b8b5ac;
+    --ink-faint: #a3a099;
+    --label: #8d8a82;
+    --ghost: #6b685e;
+    --line: #26251f;
+    --line-strong: #33322b;
+    --line-hover: #4a473f;
+    --panel: #12130f;
+    --accent: oklch(0.78 0.15 150);
+    --accent-hi: oklch(0.86 0.13 150);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Grotesk', Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink); text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  img { max-width: 100%; }
+
+  @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  .bg-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .bg-scene tech-scene { width: 100%; height: 100%; display: block; }
+  .bg-fade {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(115% 80% at 50% 40%, transparent 30%, #0c0c0bcc 78%, #0c0c0b 100%);
+  }
+
+  /* nav */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px 0;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(#0c0c0bee, #0c0c0bcc);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+  }
+  .logo { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; font-size: 12.5px; letter-spacing: 0.04em; flex-wrap: wrap; }
+  .nav-links a { color: var(--ink-faint); transition: color 150ms ease; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* header / hero */
+  header {
+    position: relative;
+    padding: 56px 0 72px;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, #0c0c0bf2 0%, #0c0c0bd6 50%, #0c0c0b55 85%, transparent 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: #c9c6bd;
+    margin-bottom: 34px;
+    white-space: nowrap;
+  }
+  .badge-dot {
+    width: 7px; height: 7px; border-radius: 999px; background: var(--accent);
+    animation: pulseDot 2.4s ease-in-out infinite; flex: none;
+  }
+  h1.name {
+    margin: 0;
+    font-size: clamp(44px, 8.5vw, 104px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 24px 0 0;
+    max-width: 620px;
+    font-size: clamp(17px, 2vw, 21px);
+    line-height: 1.55;
+    color: var(--ink-mute);
+    text-wrap: pretty;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 38px; }
+  .btn {
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-size: 14.5px;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
+  .btn-primary:hover { background: var(--accent-hi); color: var(--bg); }
+  .btn-outline { border: 1px solid var(--line-strong); color: var(--ink-dim); }
+  .btn-outline:hover { border-color: var(--line-hover); color: var(--ink); }
+
+  /* stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat { background: var(--bg); padding: 30px 4px 30px 24px; }
+  .stat:first-child { padding-left: 4px; }
+  .stat-num { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.03em; line-height: 1; }
+  .stat-label { font-size: 11.5px; letter-spacing: 0.06em; color: var(--label); margin-top: 9px; }
+
+  /* section headers */
+  .sec { padding: 96px 0 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 48px; }
+  .sec-num { font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+  .sec-title { margin: 0; font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -0.025em; font-weight: 500; }
+
+  /* experience */
+  .job {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    gap: 32px;
+    padding: 34px 0;
+    border-top: 1px solid var(--line);
+  }
+  #work .job:last-child { border-bottom: 1px solid var(--line); }
+  .job-date { font-size: 12px; color: var(--label); letter-spacing: 0.04em; }
+  .job-org { margin-top: 8px; font-size: 16px; color: var(--ink-dim); }
+  .job-title { margin: 0 0 14px; font-size: clamp(20px, 2.4vw, 26px); letter-spacing: -0.02em; font-weight: 500; }
+  .job-list { margin: 0; padding-left: 18px; color: var(--ink-mute); font-size: 16px; line-height: 1.65; display: grid; gap: 8px; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .tag { font-size: 11.5px; color: #c9c6bd; border: 1px solid var(--line-strong); border-radius: 4px; padding: 5px 10px; }
+
+  /* projects */
+  .project-feature { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+  .shot {
+    height: 280px;
+    background-image: repeating-linear-gradient(135deg, #151513 0 12px, #111110 12px 24px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .shot span { font-size: 12px; color: var(--ghost); letter-spacing: 0.06em; text-align: center; padding: 0 16px; }
+  .project-feature-body {
+    padding: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+  .eyebrow { font-size: 11.5px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px; }
+  .project-title { margin: 0 0 14px; font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.025em; font-weight: 500; }
+  .repo-link { font-size: 13px; color: var(--accent); border-bottom: 1px solid var(--line-strong); padding-bottom: 2px; }
+  .project-desc { margin: 0; color: var(--ink-mute); font-size: 16px; line-height: 1.65; text-wrap: pretty; }
+
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .project-card {
+    border: 1px solid var(--line); border-radius: 10px; padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 150ms ease;
+  }
+  .project-card:hover { border-color: var(--line-hover); }
+  .shot-sm {
+    height: 120px; border-radius: 6px;
+    background-image: repeating-linear-gradient(135deg, #151513 0 12px, #111110 12px 24px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .shot-sm span { font-size: 11px; color: var(--ghost); text-align: center; padding: 0 12px; }
+  .project-card h3 { margin: 0; font-size: 20px; letter-spacing: -0.02em; font-weight: 500; }
+  .project-card p { margin: 0; color: var(--ink-faint); font-size: 15px; line-height: 1.6; }
+  .project-card .tags { margin-top: auto; }
+
+  /* skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px 40px; }
+  .skill-cat-label { font-size: 11.5px; letter-spacing: 0.08em; color: var(--label); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .skill-cat p { margin: 14px 0 0; font-size: 16.5px; line-height: 1.75; color: var(--ink-dim); }
+
+  /* contact */
+  #contact { padding: 120px 0 0; }
+  .contact-grid {
+    border-top: 1px solid var(--line);
+    padding-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    align-items: end;
+  }
+  .contact-heading { margin: 0; font-size: clamp(34px, 6vw, 64px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; text-wrap: balance; }
+  .contact-sub { margin: 20px 0 0; color: var(--ink-faint); font-size: 17px; line-height: 1.6; max-width: 460px; }
+  .contact-list { display: grid; gap: 2px; font-size: 14.5px; }
+  .contact-row {
+    display: flex; justify-content: space-between; gap: 16px; padding: 16px 0;
+    border-bottom: 1px solid var(--line); color: var(--ink-dim); transition: color 150ms ease;
+  }
+  .contact-row:hover { color: var(--accent); }
+  .contact-row span:first-child { color: var(--label); }
+  .footer-note { margin-top: 56px; font-size: 11.5px; letter-spacing: 0.06em; color: var(--ghost); }
+
+  /* buddy guide */
+  .buddy-wrap {
+    position: fixed; right: 22px; bottom: 18px; z-index: 30;
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 2px; pointer-events: none;
+    transition: opacity 400ms ease;
+  }
+  .buddy-wrap.hidden { display: none; }
+  .bubble {
+    position: relative; max-width: 250px; background: var(--panel);
+    border: 1px solid var(--line-strong); border-radius: 12px 12px 12px 4px;
+    padding: 14px 16px; box-shadow: 0 18px 40px #00000080;
+    pointer-events: auto; display: none;
+  }
+  .bubble.show { display: block; }
+  .bubble-label { font-size: 10.5px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 7px; }
+  .bubble-text { font-size: 14px; line-height: 1.5; color: #e2dfd6; text-wrap: pretty; }
+  .bubble-close {
+    position: absolute; top: -10px; right: -10px; width: 24px; height: 24px;
+    border-radius: 999px; border: 1px solid var(--line-strong); background: var(--bg);
+    color: var(--label); font-size: 13px; line-height: 1; cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  .bubble-close:hover { color: var(--ink); border-color: var(--line-hover); }
+  .buddy-stage {
+    width: min(300px, 42vw); height: min(330px, 44vh); margin-left: auto; flex: none;
+    overflow: hidden; filter: drop-shadow(0 12px 30px #00000080);
+  }
+  .buddy-stage tech-scene { width: 100%; height: 100%; display: block; }
+
+  @media (max-width: 640px) {
+    .buddy-wrap { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-scene" id="bgScene"><tech-scene mode="world"></tech-scene></div>
+<div class="bg-fade"></div>
+
+<div class="wrap">
+
+  <nav>
+    <a href="#top" class="logo mono">AW<span>.</span></a>
+    <div class="nav-links mono">
+      <a href="#work">work</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <header id="top">
+    <div class="hero-fade"></div>
+    <div class="hero-inner">
+      <div class="badge mono">
+        <span class="badge-dot"></span>
+        OPEN TO FULL-TIME ROLES
+      </div>
+      <h1 class="name">Abdul Wahid</h1>
+      <p class="lede">
+        Computer Science graduate majoring in Data Science. I build real-time computer-vision systems,
+        FastAPI &amp; Next.js applications, and Python automation pipelines — owning features end-to-end
+        from model logic to a deployed frontend.
+      </p>
+      <div class="cta-row">
+        <a href="mailto:aw0246596@gmail.com" class="btn btn-primary mono">aw0246596@gmail.com</a>
+        <a href="https://github.com/" class="btn btn-outline mono" id="githubLink" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/abdul-wahid" class="btn btn-outline mono" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="./Abdul_Wahid_CV.pdf" class="btn btn-outline mono" download>Resume</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-num">38</div>
+      <div class="stat-label mono">PSL LETTERS RECOGNIZED</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">213</div>
+      <div class="stat-label mono">GIT COMMANDS DOCUMENTED</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label mono">ENGINEERING INTERNSHIPS</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2026</div>
+      <div class="stat-label mono">BSCS, HITEC UNIVERSITY</div>
+    </div>
+  </section>
+
+  <section id="work" class="sec">
+    <div class="sec-head">
+      <span class="sec-num mono">01</span>
+      <h2 class="sec-title">Experience</h2>
+    </div>
+
+    <article class="job">
+      <div>
+        <div class="job-date mono">AUG 2025 — DEC 2025</div>
+        <div class="job-org">DreamBridge.ai</div>
+      </div>
+      <div>
+        <h3 class="job-title">Artificial Intelligence Engineer</h3>
+        <ul class="job-list">
+          <li>Developed and tested AI workflows and automation tasks, including small FastAPI services for automation and data processing.</li>
+          <li>Performed static and dynamic web scraping with Selenium and BeautifulSoup to source and structure data for downstream tasks.</li>
+          <li>Assisted in frontend development and contributed backend features across internal tools.</li>
+        </ul>
+        <div class="tags mono">
+          <span class="tag">FastAPI</span>
+          <span class="tag">Selenium</span>
+          <span class="tag">BeautifulSoup</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div>
+        <div class="job-date mono">JUL 2024 — SEP 2024</div>
+        <div class="job-org">HolSol Technology</div>
+      </div>
+      <div>
+        <h3 class="job-title">WordPress Developer, Intern</h3>
+        <ul class="job-list">
+          <li>Built and customized WordPress websites and templates for client and internal use.</li>
+          <li>Supported content, media, and plugin integrations, troubleshooting theme compatibility and layout issues.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="job">
+      <div>
+        <div class="job-date mono">VOLUNTEER</div>
+        <div class="job-org">1,000-Mile Run Across Pakistan</div>
+      </div>
+      <div>
+        <h3 class="job-title">Media Manager</h3>
+        <ul class="job-list">
+          <li>Managed digital media content and online engagement for a nationwide fundraising run supporting The Citizens Foundation.</li>
+          <li>Coordinated content delivery, scheduling, and outreach across a multi-city, multi-week initiative.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="projects" class="sec">
+    <div class="sec-head">
+      <span class="sec-num mono">02</span>
+      <h2 class="sec-title">Selected Projects</h2>
+    </div>
+
+    <article class="project-feature">
+      <div class="shot"><span class="mono">[ SCREENSHOT — LINGUASIGN LIVE DETECTION UI ]</span></div>
+      <div class="project-feature-body">
+        <div>
+          <div class="eyebrow mono">FINAL YEAR PROJECT</div>
+          <h3 class="project-title">LinguaSign — Pakistan Sign Language Detection</h3>
+          <a href="https://github.com/" class="repo-link mono" target="_blank" rel="noopener">View repository →</a>
+        </div>
+        <div>
+          <p class="project-desc">
+            Real-time hand-gesture recognition translating 38 PSL alphabet letters into Urdu text and speech
+            from webcam input, using MediaPipe hand-landmark detection and a TensorFlow model. Includes a
+            live Urdu sentence builder with integrated speech synthesis.
+          </p>
+          <div class="tags mono">
+            <span class="tag">TensorFlow</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="project-grid">
+      <article class="project-card">
+        <div class="shot-sm"><span class="mono">[ 3D PORTFOLIO SHOT ]</span></div>
+        <h3>3D Developer Portfolio</h3>
+        <p>Interactive React/Three.js portfolio with EmailJS contact delivery, deployed on Vercel.</p>
+        <div class="tags mono">
+          <span class="tag">Three.js</span>
+          <span class="tag">Vite</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="shot-sm"><span class="mono">[ MODEL / MAZE VISUAL ]</span></div>
+        <h3>Tumor Detection &amp; Maze Pathfinding</h3>
+        <p>Medical image classification model, plus a maze-solving agent visualizing pathfinding in the browser.</p>
+        <div class="tags mono">
+          <span class="tag">scikit-learn</span>
+          <span class="tag">Python</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="shot-sm"><span class="mono">[ REFERENCE TOOL UI ]</span></div>
+        <h3>Git Command Reference</h3>
+        <p>Single-file reference for ~213 Git/GitHub commands with live search and per-command detail panels.</p>
+        <div class="tags mono">
+          <span class="tag">HTML</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" class="sec">
+    <div class="sec-head">
+      <span class="sec-num mono">03</span>
+      <h2 class="sec-title">Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">LANGUAGES</div>
+        <p>Python · TypeScript · JavaScript · C++ · HTML · CSS · ASM x86</p>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">AI / ML</div>
+        <p>TensorFlow · scikit-learn · MediaPipe · OpenCV · NumPy · Pandas</p>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">WEB DEVELOPMENT</div>
+        <p>FastAPI · Next.js · React · Tailwind CSS · WordPress</p>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">DATA &amp; AUTOMATION</div>
+        <p>Scraping &amp; preprocessing · Selenium · BeautifulSoup · ADB</p>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">DATABASES &amp; CLOUD</div>
+        <p>PostgreSQL · MySQL · MongoDB · SQL · GCP · AWS</p>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label mono">TOOLS</div>
+        <p>Git · GitHub · VS Code · Postman · Arduino Uno</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-heading">Let's build something.</h2>
+        <p class="contact-sub">
+          Currently seeking full-time roles in AI, software development, or data science.
+          Based in Pakistan, open to remote.
+        </p>
+      </div>
+      <div class="contact-list mono">
+        <a href="mailto:aw0246596@gmail.com" class="contact-row"><span>EMAIL</span><span>aw0246596@gmail.com</span></a>
+        <a href="tel:+923135254905" class="contact-row"><span>PHONE</span><span>+92 313 5254905</span></a>
+        <a href="https://github.com/" class="contact-row" id="githubRow" target="_blank" rel="noopener"><span>GITHUB</span><span>/abdulwahid</span></a>
+        <a href="https://linkedin.com/in/abdul-wahid" class="contact-row" target="_blank" rel="noopener"><span>LINKEDIN</span><span>/in/abdul-wahid</span></a>
+      </div>
+    </div>
+    <div class="footer-note mono">© 2026 ABDUL WAHID — BSCS, DATA SCIENCE, HITEC UNIVERSITY</div>
+  </section>
+
+</div>
+
+<div class="buddy-wrap" id="buddyWrap">
+  <div class="bubble" id="bubble">
+    <div class="bubble-label mono">UNIT-AW · GUIDE</div>
+    <div class="bubble-text" id="bubbleText"></div>
+    <button class="bubble-close" id="bubbleClose" aria-label="Hide guide">×</button>
+  </div>
+  <div class="buddy-stage"><tech-scene mode="buddy"></tech-scene></div>
+</div>
+
+<script src="./tech-scene.js"></script>
+<script>
+(() => {
+  const LINES = {
+    top: "Hi — I'm Abdul's guide bot. Keep scrolling; the board moves with you.",
+    work: 'Two internships: AI engineering at DreamBridge.ai, WordPress at HolSol. Scraping, FastAPI, frontend.',
+    projects: 'LinguaSign is the one to look at — 38 PSL letters recognized live, then spoken back in Urdu.',
+    skills: 'Python and TensorFlow on one side, Next.js and FastAPI on the other. Full stack, both ends.',
+    contact: "That's the tour. He's open to full-time AI, software, and data roles — say hello."
+  };
+
+  const ids = ['top', 'work', 'projects', 'skills', 'contact'];
+  const bubble = document.getElementById('bubble');
+  const bubbleText = document.getElementById('bubbleText');
+  const buddyWrap = document.getElementById('buddyWrap');
+  const bubbleClose = document.getElementById('bubbleClose');
+
+  let buddyOn = true;
+  let lastSection = null;
+
+  function measure() {
+    const vh = window.innerHeight || 800;
+    const line = vh * 0.45;
+    let current = 'top';
+    ids.forEach((id) => {
+      const n = document.getElementById(id);
+      if (!n) return;
+      const r = n.getBoundingClientRect();
+      if (r.top <= line) current = id;
+    });
+    const hero = document.getElementById('top');
+    const scrolled = hero ? hero.getBoundingClientRect().bottom < vh * 0.55 : false;
+
+    if (current !== lastSection) {
+      lastSection = current;
+      bubbleText.textContent = LINES[current] || LINES.top;
+    }
+    bubble.classList.toggle('show', scrolled && buddyOn);
+    bubble.style.pointerEvents = current === 'contact' ? 'none' : 'auto';
+    buddyWrap.style.opacity = current === 'contact' ? '0.25' : '1';
+  }
+
+  bubbleClose.addEventListener('click', () => {
+    buddyOn = false;
+    buddyWrap.classList.add('hidden');
+  });
+
+  measure();
+  window.addEventListener('scroll', measure, { passive: true, capture: true });
+  window.addEventListener('resize', measure);
+  setInterval(measure, 400);
+})();
+</script>
+</body>
+</html>
