@@ -42,3 +42,8 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# design source backup (kept locally only)
+/design-source
+AGENTS.md
+CLAUDE.md
