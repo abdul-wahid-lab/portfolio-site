@@ -16,25 +16,12 @@ const LINES = {
 };
 
 const SECTION_IDS = ["top", "work", "projects", "skills", "contact"];
-const GITHUB_USERNAME = "abdul-wahid-lab";
 
 export default function Home() {
   const [section, setSection] = useState("top");
   const [scrolled, setScrolled] = useState(false);
   const [buddyOn, setBuddyOn] = useState(true);
-  const [repoCount, setRepoCount] = useState(null);
   const [hireOpen, setHireOpen] = useState(false);
-
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data && typeof data.public_repos === "number") {
-          setRepoCount(data.public_repos);
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     function measure() {
@@ -139,10 +126,6 @@ export default function Home() {
 
         <section className="stats">
           <div className="stat">
-            <div className="stat-num">{repoCount ?? "—"}</div>
-            <div className="stat-label mono">PUBLIC GITHUB REPOS</div>
-          </div>
-          <div className="stat">
             <div className="stat-num">2</div>
             <div className="stat-label mono">ENGINEERING INTERNSHIPS</div>
           </div>
@@ -167,16 +150,18 @@ export default function Home() {
               <h3 className="job-title">Artificial Intelligence Engineer</h3>
               <ul className="job-list">
                 <li>
-                  Developed and tested AI workflows and automation tasks, including
-                  small FastAPI services for automation and data processing.
+                  Built FastAPI automation services that [FILL IN: e.g., reduced
+                  manual processing time by X% / replaced X hours/week of manual work].
                 </li>
                 <li>
-                  Performed static and dynamic web scraping with Selenium and
-                  BeautifulSoup to source and structure data for downstream tasks.
+                  Engineered scraping pipelines (Selenium, BeautifulSoup) that sourced
+                  and structured [FILL IN: volume/type of data, e.g., "10k+ product
+                  listings"] for downstream AI workflows.
                 </li>
                 <li>
-                  Assisted in frontend development and contributed backend features
-                  across internal tools.
+                  Shipped backend and frontend features across [FILL IN: X] internal
+                  tools, [FILL IN: outcome, e.g., "cutting turnaround time on Y from
+                  X to Y"].
                 </li>
               </ul>
               <div className="tags mono">
@@ -262,7 +247,10 @@ export default function Home() {
                   Real-time hand-gesture recognition translating 38 PSL alphabet
                   letters into Urdu text and speech from webcam input, using
                   MediaPipe hand-landmark detection and a TensorFlow model. Includes
-                  a live Urdu sentence builder with integrated speech synthesis.
+                  a live Urdu sentence builder with integrated speech synthesis —
+                  achieving [FILL IN: X]% accuracy across 38 PSL letters at
+                  [FILL IN: X] FPS on live webcam input, trained on [FILL IN: X]
+                  labeled samples.
                 </p>
                 <div className="tags mono">
                   <span className="tag">TensorFlow</span>
@@ -284,12 +272,21 @@ export default function Home() {
               <h3>3D Developer Portfolio</h3>
               <p>
                 Interactive React/Three.js portfolio with EmailJS contact delivery,
-                deployed on Vercel.
+                deployed on Vercel — [FILL IN: e.g., "X interactive 3D scenes",
+                a Lighthouse performance score, or load time].
               </p>
               <div className="tags mono">
                 <span className="tag">Three.js</span>
                 <span className="tag">Vite</span>
               </div>
+              <a
+                href="https://github.com/abdul-wahid-lab/portfolio"
+                className="repo-link mono"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View repository →
+              </a>
             </article>
 
             <article className="project-card">
@@ -299,13 +296,22 @@ export default function Home() {
               <h3>Tumor Detection System</h3>
               <p>
                 Skin lesion image classification pipeline — segmentation, CNN feature
-                extraction, and ANN classification to flag likely tumors.
+                extraction, and ANN classification to flag likely tumors, achieving
+                [FILL IN: X]% classification accuracy on [FILL IN: X] lesion images.
               </p>
               <div className="tags mono">
                 <span className="tag">scikit-learn</span>
                 <span className="tag">TensorFlow</span>
                 <span className="tag">Python</span>
               </div>
+              <a
+                href="https://github.com/abdul-wahid-lab/tumor-detection-system"
+                className="repo-link mono"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View repository →
+              </a>
             </article>
 
             <article className="project-card">
@@ -321,6 +327,14 @@ export default function Home() {
                 <span className="tag">HTML</span>
                 <span className="tag">JavaScript</span>
               </div>
+              <a
+                href="https://github.com/abdul-wahid-lab/git-command-reference"
+                className="repo-link mono"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View repository →
+              </a>
             </article>
           </div>
         </section>
