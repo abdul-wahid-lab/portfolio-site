@@ -6,9 +6,9 @@ import HireMeModal from "./components/HireMeModal";
 
 const LINES = {
   top: "Hi — I'm Abdul's guide bot. Keep scrolling; the board moves with you.",
-  work: "Two internships: AI engineering at DreamBridge.ai, WordPress at HolSol. Scraping, FastAPI, frontend.",
+  work: "Full-stack at Defuser AI (Stripe, OAuth), AI engineering at DreamBridge.ai, WordPress at HolSol.",
   projects:
-    "LinguaSign is the one to look at — 38 PSL letters recognized live, then spoken back in Urdu.",
+    "LinguaSign and Agora are the ones to look at — live PSL-to-speech translation, and a LAN-only chat & calling app with no server at all.",
   skills:
     "Python and TensorFlow on one side, Next.js and FastAPI on the other. Full stack, both ends.",
   contact:
@@ -126,8 +126,8 @@ export default function Home() {
 
         <section className="stats">
           <div className="stat">
-            <div className="stat-num">2</div>
-            <div className="stat-label mono">ENGINEERING INTERNSHIPS</div>
+            <div className="stat-num">3</div>
+            <div className="stat-label mono">ENGINEERING ROLES</div>
           </div>
           <div className="stat">
             <div className="stat-num">2026</div>
@@ -144,24 +144,53 @@ export default function Home() {
           <article className="job">
             <div>
               <div className="job-date mono">AUG 2025 — DEC 2025</div>
+              <div className="job-org">Defuser AI</div>
+            </div>
+            <div>
+              <h3 className="job-title">Full-Stack Developer</h3>
+              <ul className="job-list">
+                <li>
+                  Implemented Google OAuth authentication and integrated Stripe
+                  payments, backed by a PostgreSQL database running on GCP Compute
+                  instances.
+                </li>
+                <li>
+                  Built a Stripe-powered billing and subscription feature end-to-end
+                  for Defuser AI&apos;s Instagram automation platform for creators,
+                  from the Next.js checkout flow to FastAPI backend logic.
+                </li>
+              </ul>
+              <div className="tags mono">
+                <span className="tag">Next.js</span>
+                <span className="tag">FastAPI</span>
+                <span className="tag">PostgreSQL</span>
+                <span className="tag">GCP</span>
+                <span className="tag">Stripe</span>
+                <span className="tag">Google OAuth</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="job">
+            <div>
+              <div className="job-date mono">AUG 2025 — DEC 2025</div>
               <div className="job-org">DreamBridge.ai</div>
             </div>
             <div>
               <h3 className="job-title">Artificial Intelligence Engineer</h3>
               <ul className="job-list">
                 <li>
-                  Built FastAPI automation services that [FILL IN: e.g., reduced
-                  manual processing time by X% / replaced X hours/week of manual work].
+                  Developed and tested AI-related workflows and automation tasks,
+                  including small FastAPI-based services for automation and data
+                  processing.
                 </li>
                 <li>
-                  Engineered scraping pipelines (Selenium, BeautifulSoup) that sourced
-                  and structured [FILL IN: volume/type of data, e.g., "10k+ product
-                  listings"] for downstream AI workflows.
+                  Performed static and dynamic web data scraping using Selenium and
+                  BeautifulSoup to source and structure data for downstream tasks.
                 </li>
                 <li>
-                  Shipped backend and frontend features across [FILL IN: X] internal
-                  tools, [FILL IN: outcome, e.g., "cutting turnaround time on Y from
-                  X to Y"].
+                  Assisted in frontend web development and contributed to minor
+                  backend features across internal tools.
                 </li>
               </ul>
               <div className="tags mono">
@@ -202,12 +231,20 @@ export default function Home() {
               <h3 className="job-title">Media Manager</h3>
               <ul className="job-list">
                 <li>
-                  Managed digital media content and online engagement for a
-                  nationwide fundraising run supporting The Citizens Foundation.
+                  Served as media manager for a cross-Pakistan run — the first person
+                  ever to run across the country, 35 ultra marathons in 35 days across
+                  50+ cities — supporting a high-visibility, multi-channel storytelling
+                  campaign.
                 </li>
                 <li>
-                  Coordinated content delivery, scheduling, and outreach across a
-                  multi-city, multi-week initiative.
+                  Supported media efforts behind a campaign that generated ~1M
+                  impressions on LinkedIn and significant earned media, contributing
+                  to $750k+ raised for The Citizens Foundation (TCF) to educate 5,000+
+                  out-of-school children.
+                </li>
+                <li>
+                  Coordinated with a distributed team on partnerships, messaging,
+                  logistics, and media throughout the campaign.
                 </li>
               </ul>
             </div>
@@ -244,13 +281,15 @@ export default function Home() {
               </div>
               <div>
                 <p className="project-desc">
-                  Real-time hand-gesture recognition translating 38 PSL alphabet
-                  letters into Urdu text and speech from webcam input, using
-                  MediaPipe hand-landmark detection and a TensorFlow model. Includes
-                  a live Urdu sentence builder with integrated speech synthesis —
-                  achieving [FILL IN: X]% accuracy across 38 PSL letters at
-                  [FILL IN: X] FPS on live webcam input, trained on [FILL IN: X]
-                  labeled samples.
+                  Real-time gesture recognition covering 37 PSL alphabet classes plus
+                  5 word-level classes (42 total), translating live webcam input into
+                  Urdu text and speech. A MediaPipe hand-landmark pipeline (21
+                  landmarks per hand) feeds a 42-dimensional feature vector into two
+                  dense TensorFlow/Keras classifiers, trained over 25 epochs
+                  (alphabet model) and 50 epochs (word model) on an 80/20 split and
+                  refined via confusion-matrix analysis. Delivers a live Urdu
+                  sentence builder with a configurable 300ms–3s detection cooldown
+                  and integrated speech synthesis.
                 </p>
                 <div className="tags mono">
                   <span className="tag">TensorFlow</span>
@@ -271,9 +310,11 @@ export default function Home() {
               </div>
               <h3>3D Developer Portfolio</h3>
               <p>
-                Interactive React/Three.js portfolio with EmailJS contact delivery,
-                deployed on Vercel — [FILL IN: e.g., "X interactive 3D scenes",
-                a Lighthouse performance score, or load time].
+                5-section single-page portfolio (hero, experience, projects, skills,
+                contact) with a scroll-reactive Three.js background, replacing a
+                plain PDF as the primary introduction to recruiters. Pulls live
+                public repository stats via the GitHub API and wires a functional
+                &quot;Hire Me&quot; flow through EmailJS, deployed on Vercel.
               </p>
               <div className="tags mono">
                 <span className="tag">Three.js</span>
@@ -295,9 +336,10 @@ export default function Home() {
               </div>
               <h3>Tumor Detection System</h3>
               <p>
-                Skin lesion image classification pipeline — segmentation, CNN feature
-                extraction, and ANN classification to flag likely tumors, achieving
-                [FILL IN: X]% classification accuracy on [FILL IN: X] lesion images.
+                Keras/TensorFlow CNN image classifier for fast, low-cost preliminary
+                screening — segmentation, feature extraction, and classification to
+                flag likely skin-lesion tumors, running inference on live camera
+                frames.
               </p>
               <div className="tags mono">
                 <span className="tag">scikit-learn</span>
@@ -306,6 +348,35 @@ export default function Home() {
               </div>
               <a
                 href="https://github.com/abdul-wahid-lab/tumor-detection-system"
+                className="repo-link mono"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View repository →
+              </a>
+            </article>
+
+            <article className="project-card">
+              <div className="shot-sm">
+                <img src="/agora-desktop.png" alt="Agora desktop app onboarding screen" />
+              </div>
+              <h3>Agora — LAN-First Chat &amp; Calling</h3>
+              <p>
+                Serverless, local-only chat, file sharing, and voice/video calling
+                app: devices discover each other over the LAN (mDNS/UDP) and talk
+                peer-to-peer, no internet, accounts, or central server required.
+                Electron + React desktop app with a Python/FastAPI local backend,
+                WebSocket messaging, WebRTC calls, and per-device SQLite storage.
+              </p>
+              <div className="tags mono">
+                <span className="tag">Electron</span>
+                <span className="tag">React</span>
+                <span className="tag">Python</span>
+                <span className="tag">FastAPI</span>
+                <span className="tag">WebRTC</span>
+              </div>
+              <a
+                href="https://github.com/abdul-wahid-lab/agora"
                 className="repo-link mono"
                 target="_blank"
                 rel="noopener noreferrer"
